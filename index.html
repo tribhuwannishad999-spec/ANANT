@@ -1,1 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHARATAM AI | India's Next-Gen AI Agent</title>
+    <meta name="description" content="BHARATAM AI - Smart, Fast, and Powerful Indian AI Assistant.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0B1220;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary-grad: linear-gradient(135deg, #FF9933, #FFFFFF, #138808); /* Saffron, White, Green */
+            --accent-blue: #000080; /* Ashoka Chakra Blue */
+            --text-main: #FFFFFF;
+            --text-dim: #A0AEC0;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Gradient Background */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a2a4a 0%, #0b1220 100%);
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-grad);
+            filter: blur(120px);
+            opacity: 0.15;
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            background: rgba(11, 18, 32, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: #FF9933;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-main {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            background: var(--primary-grad);
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.5);
+        }
+
+        /* Chat Section */
+        .chat-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+
+        .chat-window {
+            height: 400px;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .ai-msg {
+            background: rgba(255, 255, 255, 0.08);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .user-msg {
+            background: #138808;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            padding: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: #FF9933;
+            transform: translateY(-10px);
+        }
+
+        .card i {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #FF9933;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 10%;
+            text-align: center;
+        }
+
+        .about-content {
+            background: linear-gradient(to right, rgba(255,153,51,0.05), rgba(19,136,8,0.05));
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 10%;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .socials i {
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            color: var(--text-dim);
+            transition: var(--transition);
+        }
+
+        .socials i:hover { color: white; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .features { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="blob"></div>
+
+    <nav>
+        <div class="logo">BHARATAM AI</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#chat">Try Demo</a>
+            <a href="#about">Our Vision</a>
+            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>India’s Next Generation <br><span style="color: #FF9933;">AI Agent</span></h1>
+        <p>A smart, fast, and powerful AI assistant built for the future of Indian tech innovation. Designed for speed, privacy, and scale.</p>
+        <button class="btn-main" onclick="location.href='#chat'">Start Conversing</button>
+    </section>
+
+    <section id="chat" style="padding: 2rem 5%;">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Experience the Interface</h2>
+        <div class="chat-container">
+            <div class="chat-window" id="chatWindow">
+                <div class="message ai-msg">
+                    Namaste! I am BHARATAM AI. How can I assist you in your innovation journey today?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask BHARATAM anything...">
+                <button class="btn-main" style="padding: 0.8rem 1.5rem;" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button class="btn-main" style="padding: 0.8rem 1.5rem; background: var(--glass); color: white;">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="card">
+            <i class="fas fa-bolt"></i>
+            <h3>Fast Performance</h3>
+            <p>Optimized architecture ensuring real-time responses and low latency for every query.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-language"></i>
+            <h3>Multi-Lingual</h3>
+            <p>Deep integration with Indian regional languages for a truly inclusive AI experience.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-code"></i>
+            <h3>API First</h3>
+            <p>Simple and powerful API hooks to integrate Bharatam AI into your existing workflow.</p>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2 style="margin-bottom: 1.5rem;">Indian Innovation Theme</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 0 auto;">
+                BHARATAM AI is dedicated to pushing the boundaries of what's possible in the Indian tech ecosystem. We believe in building sovereign AI infrastructure that is secure, scalable, and culturally aware.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">BHARATAM AI</div>
+        <div class="socials">
+            <i class="fab fa-x-twitter"></i>
+            <i class="fab fa-linkedin"></i>
+            <i class="fab fa-github"></i>
+        </div>
+        <div style="color: var(--text-dim); font-size: 0.8rem;">
+            © 2026 Bharatam AI. Ready for GitHub Pages.
+        </div>
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const window = document.getElementById('chatWindow');
+            
+            if (input.value.trim() !== "") {
+                // User Message
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-msg';
+                userDiv.textContent = input.value;
+                window.appendChild(userDiv);
+
+                const query = input.value;
+                input.value = "";
+
+                // Fake AI Response
+                setTimeout(() => {
+                    const aiDiv = document.createElement('div');
+                    aiDiv.className = 'message ai-msg';
+                    aiDiv.innerHTML = `<i class="fas fa-robot"></i> Thinking...`;
+                    window.appendChild(aiDiv);
+                    
+                    setTimeout(() => {
+                        aiDiv.innerHTML = `This is a demo response from <b>BHARATAM AI</b> regarding "${query}". Deploy this on GitHub to start connecting your backend!`;
+                        window.scrollTop = window.scrollHeight;
+                    }, 1000);
+                }, 500);
+
+                window.scrollTop = window.scrollHeight;
+            }
+        }
+
+        // Enter key trigger
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Scroll Reveal effect
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = "translateY(20px)";
+            card.style.transition = "all 0.6s ease-out";
+            observer.observe(card);
+        });
+    </script>
+</body>
+  </html>
 
